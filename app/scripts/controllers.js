@@ -1,4 +1,4 @@
-angular.module('stockMarketApp').controller('AppCtrl', [function() {
+angular.module('stockMarketApp').controller('AppCtrl',['$scope','Alertservice', function($scope,Alertservice) {
   var self = this;
 
   self.stocks = [{
@@ -15,6 +15,8 @@ angular.module('stockMarketApp').controller('AppCtrl', [function() {
     "size": "Large"
   }];
 
+
+
   self.getChange = function(stock) {
     return Math.ceil(((stock.price - stock.previous) / stock.previous) * 100);
   };
@@ -24,11 +26,24 @@ angular.module('stockMarketApp').controller('AppCtrl', [function() {
       negative: stock.price <= stock.previous
     }
   };
-}]).controller('RegisterCtrl', [function() {
-  var self = this;
 
+}]).controller('RegisterCtrl', ['$window','$log', '$rootScope',function($window,$log,$rootScope) {
+  var self = this;
   self.register = function() {
     self.message = 'Trying to register with ' + self.username + ' & ' + self.password;
+    $window.alert(self.message);
+    $log.log(self.messages);
+    $rootScope.$broadcast('message',self.username);
+
+  };
+}]).controller('ListCtrl',['$window','Bookservice','$scope',function($window,Bookervice,$scope){
+var self=this;
+  self.message=Bookervice.get;
+  }]).controller('AddCtrl',['$window','Bookservice',function($window,Bookservice){
+ var self=this;
+  self.Addbookdeatils= function () {
+        Bookservice.set(self.book);
+        self.book = {};
   };
 }]);
 

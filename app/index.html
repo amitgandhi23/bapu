@@ -26,6 +26,7 @@
 <script src="scripts/vendors/json3.min.js"></script>
 <![endif]-->
 <div ng-controller="AppCtrl as appCtrl" class="ng-cloak">
+  <div class="alert alert-info" ng-show="appCtrl.message" ng-bind="appCtrl.message"></div>
 
   <div class="row-fluid">
     <div ng-repeat="stock in appCtrl.stocks">
@@ -42,7 +43,7 @@
 </div>
 
 <div ng-controller="RegisterCtrl as registerCtrl">
-  <div class="alert alert-info" ng-show="registerCtrl.message" ng-bind="registerCtrl.message"></div>
+
   <div class="hero-unit">
     <form name="registerForm" ng-submit="registerCtrl.register()">
       <input type="text" ng-model="registerCtrl.username" placeholder="Username" required="">
@@ -52,7 +53,27 @@
   </div>
 
 </div>
+<div ng-controller="ListCtrl as listCtrl">
+  <div class="row-fluid">
 
+  <div  ng-repeat="lst in listCtrl.message()">
+    <input type="checkbox" ng-model="listCtrl.chk" >
+    <div >
+      <span>{{lst.name}}</span>
+    </div>
+    <div>
+      <span>{{lst.author}}</span>
+    </div>
+    <div><input type="button" class="btn  btn-danger btn-large" ng-click="listCtrl.Remove($index)" value="Remove" ></div>
+
+  </div>
+</div>
+  </div>
+<div ng-controller="AddCtrl as addCtrl">
+  <input type="text" ng-model="addCtrl.book.name" placeholder="Name" required="">
+  <input type="text" ng-model="addCtrl.book.author" placeholder="Author" required="">
+  <input type="submit" value="Add New" class="btn btn-success btn-large" ng-click="addCtrl.Addbookdeatils()">
+</div>
 <script src="scripts/vendors/jquery.js"></script>
 <script src="scripts/vendors/jquery-ui-1.10.2.custom.js"></script>
 <script src="scripts/vendors/angular.js"></script>
@@ -62,6 +83,8 @@
 <!-- build:js scripts/plugins.js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers.js"></script>
+<script src="scripts/service.js"></script>
+<script src="scripts/Bookservice.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
